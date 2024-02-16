@@ -1,6 +1,7 @@
 export const protectedPaths = [
   "/dashboard",
   "/profile",
-  "/settings",
+  "/user/\\[id\\]",
+  "/vote/\\[id\\]/edit",
   "/logout",
 ];

@@ -1,109 +1,55 @@
-import VoteCard from "@/components/VoteCard";
-
-export type Vote = {
-  id: string;
-  title: string;
-  description: string;
-  endDate: string;
-  createdAt: string;
-  createdBy: string;
-  expired: boolean;
-  userAvatar: string;
-  result?: string;
-};
-
-const VoteCardData = [
-  {
-    id: "1",
-    title: "Which is the best recipe for potato salad?",
-    description: "Card Description",
-    endDate: " 03 02 2024",
-    createdAt: "1 hour ago",
-    createdBy: "Willie Spinka",
-    expired: false,
-    userAvatar:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/949.jpg",
-  },
-  {
-    id: "2",
-    title: "Are you dog person or a cat person?",
-    description: "Card Description",
-    endDate: "03 02 2024",
-    createdAt: "2 hour ago",
-    createdBy: "Willie Spinka",
-    expired: true,
-    userAvatar:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1106.jpg",
-    result: "Cat",
-  },
-
-  {
-    id: "6",
-    title: "Which OS you prefer the most?",
-    description: "Card Description",
-    endDate: " 03 02 2024",
-    createdAt: "1 hour ago",
-    createdBy: "Willie Spinka",
-    expired: true,
-    userAvatar:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/949.jpg",
-    result: "macOS",
-  },
-
-  {
-    id: "6",
-    title: "Are you iPhone or Samsung person?",
-    description: "Card Description",
-    endDate: " 03 02 2024",
-    createdAt: "1 hour ago",
-    createdBy: "Willie Spinka",
-    expired: true,
-    userAvatar:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/949.jpg",
-    result: "iPhone",
-  },
-
-  {
-    id: "7",
-    title: "Which Javascript framework do you prefer?",
-    description: "Card Description",
-    endDate: " 03 02 2024",
-    createdAt: "1 hour ago",
-    createdBy: "Willie Spinka",
-    expired: true,
-    userAvatar:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/949.jpg",
-    result: "React",
-  },
-];
+import ListVote from "@/components/ListVote";
+import { listActiveVotes, listExpiredVotes } from "@/lib/db";
+import Link from "next/link";
 
 export default function page() {
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-3">Ongoing Votes</h1>
-
-      <div className="flex flex-row mb-12 flex-wrap">
-        {VoteCardData.filter((vote) => !vote.expired).map((vote) => (
-          <VoteCard
-            key={vote.id}
-            vote={vote}
-            customStyle="bg-emerald-500 p-2 rounded-2xl mb-2"
-          />
-        ))}
+    <div className="scroll-m-20">
+      <div className="mt-10 mb-10 text-center space-y-5">
+        <h1 className="text-4xl font-bold mb-3">Create a new Vote</h1>
+        <p className="text-lg">
+          You can create a new vote by clicking the button below.
+        </p>
+        <div className="mt-5 flex">
+          <Link
+            href="/vote/new"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
+            Create New Vote
+          </Link>
+        </div>
       </div>
+      <h1 className="text-4xl font-bold mb-3">Ongoing Votes</h1>
+      <ActiveVote />
 
       <h1 className="text-4xl font-bold mb-3">Past Votes</h1>
-      <div className="flex flex-row mb-12 flex-wrap">
-        {VoteCardData.filter((vote) => vote.expired).map((vote) => (
-          <VoteCard
-            key={vote.id}
-            vote={vote}
-            customStyle="bg-rose-600 p-2 rounded-2xl mb-2"
-          />
-        ))}
-      </div>
-
-      <h1 className="text-4xl font-bold mb-3"> Upcoming Votes</h1>
+      <ExpiredVote />
     </div>
   );
 }
+
+const ActiveVote = async () => {
+  const { data: votes, error } = await listActiveVotes();
+  if (!votes?.length) {
+    return <div> No Active Votes</div>;
+  }
+
+  if (error) {
+    return <div> Error fetching active votes</div>;
+  }
+
+  return <ListVote votes={votes} />;
+};
+
+const ExpiredVote = async () => {
+  const { data: votes, error } = await listExpiredVotes();
+  if (!votes?.length) {
+    return <div> No Expired Votes</div>;
+  }
+
+  if (error) {
+    return <div> Error fetching expired votes</div>;
+  }
+
+  return <ListVote votes={votes} isExpired={true} />;
+};

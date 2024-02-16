@@ -9,7 +9,7 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      profiles: {
+      users: {
         Row: {
           avatar: string | null
           created_at: string
@@ -33,7 +33,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "profiles_id_fkey"
+            foreignKeyName: "users_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
@@ -44,29 +44,37 @@ export type Database = {
       vote: {
         Row: {
           created_at: string
-          "created-by": string
+          created_by: string
           description: string | null
-          "end-date": string
+          end_date: string
           id: string
           title: string
         }
         Insert: {
           created_at?: string
-          "created-by"?: string
+          created_by: string
           description?: string | null
-          "end-date": string
+          end_date: string
           id?: string
           title: string
         }
         Update: {
           created_at?: string
-          "created-by"?: string
+          created_by?: string
           description?: string | null
-          "end-date"?: string
+          end_date?: string
           id?: string
           title?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "vote_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       "vote-log": {
         Row: {
@@ -90,7 +98,22 @@ export type Database = {
           "user-id"?: string | null
           "vote-id"?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "vote-log_user-id_fkey"
+            columns: ["user-id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vote-log_vote-id_fkey"
+            columns: ["vote-id"]
+            isOneToOne: false
+            referencedRelation: "vote"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       "vote-options": {
         Row: {
@@ -105,7 +128,15 @@ export type Database = {
           options?: Json
           "vote-id"?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "vote-options_vote-id_fkey"
+            columns: ["vote-id"]
+            isOneToOne: true
+            referencedRelation: "vote"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

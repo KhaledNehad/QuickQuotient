@@ -20,7 +20,7 @@ export default function useUser() {
 
       if (data.session?.user) {
         const { data: user } = await supabase
-          .from("profiles")
+          .from("users")
           .select("*")
           .eq("id", data.session.user.id)
           .single();
