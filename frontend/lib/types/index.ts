@@ -5,12 +5,7 @@ export type IVotes =
       end_date: string;
       id: string;
       title: string;
-      users: {
-        created_at: string;
-        avatar: string | null;
-        id: string;
-        username: string | null;
-      } | null;
+      users: IUser;
     }[]
   | null;
 
@@ -22,3 +17,13 @@ export type IVote = {
   created_by: string;
   end_date: string;
 };
+
+export type IUser =
+  | {
+      created_at: string;
+      avatar: string | null;
+      id: string;
+      username: string | null;
+      email: string;
+    }[]
+  | null;

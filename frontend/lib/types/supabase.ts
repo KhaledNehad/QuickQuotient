@@ -76,62 +76,62 @@ export type Database = {
           }
         ]
       }
-      "vote-log": {
+      vote_log: {
         Row: {
           created_at: string
           id: string
           option: string | null
-          "user-id": string | null
-          "vote-id": string | null
+          user_id: string | null
+          vote_id: string | null
         }
         Insert: {
           created_at?: string
           id?: string
           option?: string | null
-          "user-id"?: string | null
-          "vote-id"?: string | null
+          user_id?: string | null
+          vote_id?: string | null
         }
         Update: {
           created_at?: string
           id?: string
           option?: string | null
-          "user-id"?: string | null
-          "vote-id"?: string | null
+          user_id?: string | null
+          vote_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "vote-log_user-id_fkey"
-            columns: ["user-id"]
+            foreignKeyName: "public_vote_log_vote_id_fkey"
+            columns: ["vote_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "vote"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "vote-log_vote-id_fkey"
-            columns: ["vote-id"]
+            foreignKeyName: "vote-log_user-id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "vote"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
       }
-      "vote-options": {
+      vote_options: {
         Row: {
           options: Json
-          "vote-id": string
+          vote_id: string
         }
         Insert: {
           options: Json
-          "vote-id": string
+          vote_id: string
         }
         Update: {
           options?: Json
-          "vote-id"?: string
+          vote_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "vote-options_vote-id_fkey"
-            columns: ["vote-id"]
+            foreignKeyName: "public_vote-options_vote_id_fkey"
+            columns: ["vote_id"]
             isOneToOne: true
             referencedRelation: "vote"
             referencedColumns: ["id"]
@@ -143,7 +143,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_vote: {
+        Args: {
+          options: Json
+          title: string
+          end_date: string
+          description: string
+        }
+        Returns: undefined
+      }
+      update_vote_and_log: {
+        Args: {
+          update_id: string
+          option: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

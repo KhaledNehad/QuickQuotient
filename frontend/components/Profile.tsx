@@ -55,7 +55,7 @@ export default function Profile() {
                 alt={data.username || ""}
                 width={50}
                 height={50}
-                className="rounded-full animate-fade ring-2"
+                className="animate-fade ring-2"
                 onClick={handleSignOut}
               />
             ) : (
@@ -68,7 +68,7 @@ export default function Profile() {
             )}
             <DropdownMenuContent>
               <DropdownMenuLabel>{data.username}</DropdownMenuLabel>
-              <Link href="/profile">
+              <Link href={`/user/${data.id}`}>
                 <DropdownMenuItem>Profile</DropdownMenuItem>
               </Link>
 

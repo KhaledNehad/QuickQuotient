@@ -1,27 +1,23 @@
 import ListVote from "@/components/ListVote";
+import { Button } from "@/components/ui/button";
 import { listActiveVotes, listExpiredVotes } from "@/lib/db";
 import Link from "next/link";
 
 export default function page() {
   return (
     <div className="scroll-m-20">
-      <div className="mt-10 mb-10 text-center space-y-5">
-        <h1 className="text-4xl font-bold mb-3">Create a new Vote</h1>
-        <p className="text-lg">
-          You can create a new vote by clicking the button below.
+      <div>
+        <h1 className="text-4xl font-bold mb-3">Welcome to Quick Quotient</h1>
+        <p className="mb-6">
+          Quick Quotient is a simple voting app that allows you to create and
+          vote on polls.
         </p>
-        <div className="mt-5 flex">
-          <Link
-            href="/vote/new"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Create New Vote
-          </Link>
-        </div>
+        <Button variant="outline" className="mb-4">
+          <Link href="/vote/create">Create a Vote</Link>
+        </Button>
       </div>
       <h1 className="text-4xl font-bold mb-3">Ongoing Votes</h1>
       <ActiveVote />
-
       <h1 className="text-4xl font-bold mb-3">Past Votes</h1>
       <ExpiredVote />
     </div>

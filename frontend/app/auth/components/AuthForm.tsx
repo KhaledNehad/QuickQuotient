@@ -13,7 +13,7 @@ export default function AuthForm() {
         <KeyRound />
         <h1 className="text-2xl font-bold">Quick Quotient</h1>
       </div>
-      <Tabs defaultValue="register" className="flex flex-col space-y-4">
+      {/* <Tabs defaultValue="register" className="flex flex-col space-y-4">
         <TabsList className="grid grid-cols-2 w-full">
           <TabsTrigger value="register">Register</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
@@ -24,10 +24,10 @@ export default function AuthForm() {
         <TabsContent value="login">
           <LoginForm />
         </TabsContent>
-      </Tabs>
+      </Tabs> */}
       <div className="flex items-center justify-center space-x-2 mt-5">
         <hr className="w-1/4" />
-        <span>Or continue with</span>
+        <span>Continue with</span>
         <hr className="w-1/4" />
       </div>
 
