@@ -15,8 +15,8 @@ export default function Page() {
       provider,
       options: {
         redirectTo: next
-          ? `${window.location.origin}/auth/callback?next=${next}`
-          : `${window.location.origin}/auth/callback`,
+          ? `${location.origin}/auth/callback?next=${next}`
+          : `${location.origin}/auth/callback`,
       },
     });
   };
