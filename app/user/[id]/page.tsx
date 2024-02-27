@@ -1,6 +1,6 @@
 import createSupabaseServerClient from "@/lib/supabase/server";
-import UserTable from "../UserTable";
-import UserInfo from "../UserInfo";
+import UserTable from "../components/UserTable";
+import UserInfo from "../components/UserInfo";
 import { IUser } from "@/lib/types";
 
 export default async function Page({ params }: { params: { id: string } }) {

@@ -14,7 +14,9 @@ export default function Page() {
     supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=${next}`,
+        redirectTo: next
+          ? `${window.location.origin}/auth/callback?next=${next}`
+          : `${window.location.origin}/auth/callback`,
       },
     });
   };

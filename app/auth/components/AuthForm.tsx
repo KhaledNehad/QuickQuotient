@@ -6,6 +6,8 @@ import LoginForm from "./LoginForm";
 import OAuthForm from "./OAuthForm";
 import { KeyRound } from "lucide-react";
 
+import { Suspense } from "react";
+
 export default function AuthForm() {
   return (
     <div className="w-full max-w-md">
@@ -32,7 +34,9 @@ export default function AuthForm() {
       </div>
 
       <div className="mt-4">
-        <OAuthForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <OAuthForm />
+        </Suspense>
       </div>
     </div>
   );

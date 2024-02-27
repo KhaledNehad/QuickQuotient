@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import useUser from "@/app/auth/hook/useUser";
+import useUser from "@/lib/hook/useUser";
 import Image from "next/image";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { useQueryClient } from "@tanstack/react-query";

@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { max } from "date-fns";
 
 export default function UserInfo({ user }: { user: any }) {
   return (

@@ -7,7 +7,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { BsTrash } from "react-icons/bs";
 import { formatDistanceToNow } from "date-fns";
 
-import useUser from "@/app/auth/hook/useUser";
+import useUser from "@/lib/hook/useUser";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import Vote from "./Vote";
 import { redirect } from "next/navigation";

@@ -6,8 +6,8 @@ import Link from "next/link";
 import React from "react";
 import { BsTrash } from "react-icons/bs";
 import { RiEdit2Fill } from "react-icons/ri";
-import useUser from "@/app/auth/hook/useUser";
-import useGetSession from "@/app/auth/hook/useGetSession";
+import useUser from "@/lib/hook/useUser";
+import useGetSession from "@/lib/hook/useGetSession";
 import Image from "next/image";
 
 export default function VoteInfo({
