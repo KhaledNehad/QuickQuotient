@@ -31,8 +31,6 @@ export async function GET(request: Request) {
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`);
     }
-  } else {
-    console.error("No code in request");
   }
 
   return NextResponse.redirect(origin + "auth?error=oauth_error");
