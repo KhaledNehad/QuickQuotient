@@ -6,6 +6,7 @@ import { useGetVote } from "@/lib/hook";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { BsInfoCircleFill } from "react-icons/bs";
+import { Button } from "@/components/ui/button";
 
 export default function Vote({ id }: { id: string }) {
   const queryClient = useQueryClient();
@@ -100,40 +101,42 @@ export default function Vote({ id }: { id: string }) {
           return (
             <div
               key={index}
-              className="flex items-center w-full group cursor-pointer"
-              onClick={() => castVote(key)}
+              className={cn("flex items-center gap-2", "p-2 rounded-md")}
             >
-              <h1 className=" w-40 line-clamp-2   text-lg break-words select-none ">
-                {highestKey === key ? key + " 🎉" : key}
-              </h1>
-              <div className="flex-1 flex items-center gap-2">
-                <div className="py-3 pr-5 border-l border-zinc-400 flex-1 ">
+              <div className="flex-1">
+                <h1 className="text-lg font-bold">
+                  {key === highestKey && (
+                    <span className="text-green-500">👑 </span>
+                  )}
+                  {key}
+                </h1>
+                <div className="flex items-center gap-2">
                   <div
                     className={cn(
-                      "h-16 border-y border-r rounded-e-xl relative transition-all group-hover:border-zinc-400",
-                      {
-                        "bg-yellow-500": highestKey === key,
-                      }
+                      "w-1/2 h-4 bg-gray-300 rounded-md",
+                      key === highestKey ? "bg-green-500" : "bg-gray-800"
                     )}
-                    style={{
-                      width: `${percentage}%`,
-                    }}
-                  >
-                    <h1 className=" absolute top-1/2 -right-8  -translate-y-1/2 select-none">
-                      {voteOptions[key as keyof typeof voteOptions]}
-                    </h1>
-                  </div>
+                    style={{ width: percentage + "%" }}
+                  ></div>
+                  <h1>{percentage}%</h1>
                 </div>
               </div>
+              <Button
+                onClick={() => castVote(key)}
+                className="px-4 py-2"
+                variant="outline"
+              >
+                Vote
+              </Button>
             </div>
           );
         })}
       </div>
       {voteLog && (
-        <div className="flex items-center gap-2 text-gray-400">
+        <div className="flex items-center gap-2 p-2 bg-gray-800 rounded-md">
           <BsInfoCircleFill />
           <h1 className="text-lg ">
-            You voted for{" "}
+            You have voted for{" "}
             <span className="text-yellow-500 font-bold">{voteLog.option}</span>{" "}
             on {new Date(voteLog?.created_at!).toDateString()}{" "}
             {new Date(voteLog?.created_at!).toLocaleTimeString()}

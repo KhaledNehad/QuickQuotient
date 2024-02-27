@@ -24,7 +24,7 @@ export default function VoteWrapper({ id }: { id: string }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="w-full ">
       <Vote id={id} />
     </div>
   );
