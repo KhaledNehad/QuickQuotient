@@ -203,7 +203,6 @@ export default function VoteEntryForm() {
                   if (e.key === "Enter") {
                     e.preventDefault();
                     addOption();
-                    console.log(form.getValues("vote_options"));
                   }
                 }}
               />

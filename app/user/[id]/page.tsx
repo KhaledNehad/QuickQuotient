@@ -12,7 +12,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     .eq("created_by", params.id);
 
   if (votesError) {
-    console.error(votesError);
     return <div>error</div>;
   }
 
