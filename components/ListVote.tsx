@@ -29,14 +29,14 @@ export default function ListVote({
     <div className="flex flex-row mb-12 flex-wrap">
       {votes?.map(({ title, end_date, created_at, users, id }) => (
         <div className="w-1/3 px-2" key={id}>
-          <Link href={`/vote/${id}`}>
-            <Card
-              className={`${
-                isExpired ? "bg-rose-600" : "bg-green-500"
-              } "p-2 rounded-2xl mb-2`}
-            >
-              <CardHeader>
-                <div className="flex flex-row justify-between items-center">
+          <Card
+            className={`${
+              isExpired ? "bg-rose-600" : "bg-green-500"
+            } "p-2 rounded-2xl mb-2 relative`}
+          >
+            <CardHeader>
+              <div className="flex flex-row justify-between items-center">
+                <Link href={`/user/${users?.id}`} className="z-10">
                   <div className="flex flex-row items-center space-x-2">
                     <Image
                       src={users?.avatar}
@@ -48,49 +48,57 @@ export default function ListVote({
                       {users?.username}
                     </h3>
                   </div>
+                </Link>
 
-                  <div className="text-xs font-medium leading-none">
-                    {formatDistanceToNowStrict(new Date(created_at), {
-                      addSuffix: true,
-                    })}
-                  </div>
+                <div className="text-xs font-medium leading-none">
+                  {formatDistanceToNowStrict(new Date(created_at), {
+                    addSuffix: true,
+                  })}
                 </div>
-              </CardHeader>
-              <CardContent>
-                <CardTitle className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
-                  {title}
-                </CardTitle>
-                {isExpired ? (
-                  <Badge variant="secondary">Expired</Badge>
-                ) : (
-                  <p className="text-xs">
-                    Until {new Date(end_date).toDateString()}
-                  </p>
-                )}
-              </CardContent>
-              {/*<CardFooter>
-                 {!isExpired ? (
-                  <div className="flex flex-col space-y-2 w-full">
-
-
-                    <div className="flex flex-row justify-between w-full items-center space-x-1">
-                      <Link href={`/vote/${id}`} className="w-full">
-                        <Button variant="outline" className="w-full">
-                          Vote Now
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-row justify-between items-center space-x-1 w-full bg-black bg-opacity-40 p-2 rounded-2xl ">
-                    <h3 className="text-center text-lg font-bold text-white w-full">
-                      &quot;Winner&quot; Won 🎉
-                    </h3>
-                  </div>
-                )}
-              </CardFooter>*/}
-            </Card>
-          </Link>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <CardTitle className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
+                {title}
+              </CardTitle>
+              {isExpired ? (
+                <Badge variant="secondary">Expired</Badge>
+              ) : (
+                <p className="text-xs">
+                  Until {new Date(end_date).toDateString()}
+                </p>
+              )}
+            </CardContent>
+            <CardFooter>
+              {isExpired ? (
+                <Button variant="outline" className="w-full">
+                  View Results{" "}
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 inline"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm-1-5a1 1 0 011-1h2a1 1 0 011 1v1a1 1 0 01-1 1H10a1 1 0 01-1-1v-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </Button>
+              ) : (
+                <Button variant="outline" className="w-full">
+                  Vote Now
+                </Button>
+              )}
+            </CardFooter>
+            <Link
+              href={`/vote/${id}`}
+              className="absolute top-0 left-0 h-full w-full opacity-0"
+            ></Link>
+          </Card>
         </div>
       ))}
     </div>
